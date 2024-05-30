@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "first-movie-app",
+    "displayName": "first-movie-app",
     "slug": "first-movie-app",
     "version": "1.0.0",
     "orientation": "portrait",
