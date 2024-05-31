@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -17,14 +17,53 @@ import TrendingMovies from "../components/trendingMovies";
 import MovieList from "../components/movieList";
 import { useNavigation } from "@react-navigation/native";
 import Loading from "../components/loading";
+import {
+  fetchTopRatedMovies,
+  fetchTrendingMovies,
+  fetchUpComingMovies,
+} from "../api/moviedb";
 
 const ios = Platform.OS == "ios";
 
 export default function HomeScreen() {
-  const [trending, setTrending] = useState([1, 2, 3]);
-  const [upcoming, setUpcoming] = useState([1, 2, 3]);
-  const [topRated, setTopRated] = useState([1, 2, 3]);
-  const [loading, setLoading] = useState(false);
+  const [trending, setTrending] = useState([]);
+  const [upcoming, setUpcoming] = useState([]);
+  const [topRated, setTopRated] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getTrendingMovies();
+    getUpComingMovies();
+    getTopRatedMovies();
+  }, []);
+
+  const getTrendingMovies = async () => {
+    const data = await fetchTrendingMovies({ pageNum: 1 });
+    if (data && data.results) {
+      setTrending(data.results);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+    }
+  };
+  const getUpComingMovies = async () => {
+    const data = await fetchUpComingMovies({ pageNum: 1 });
+    if (data && data.results) {
+      setUpcoming(data.results);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+    }
+  };
+  const getTopRatedMovies = async () => {
+    const data = await fetchTopRatedMovies({ pageNum: 1 });
+    if (data && data.results) {
+      setTopRated(data.results);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+    }
+  };
 
   const navigation = useNavigation();
   return (
@@ -51,7 +90,7 @@ export default function HomeScreen() {
           contentContainerStyle={{ paddingBottom: 10 }}
         >
           {/* Trending Movies carousel */}
-          <TrendingMovies data={trending} />
+          {trending.length > 0 && <TrendingMovies data={trending} />}
 
           {/* upcoming movies row */}
           <MovieList title="Upcoming" data={upcoming} />
