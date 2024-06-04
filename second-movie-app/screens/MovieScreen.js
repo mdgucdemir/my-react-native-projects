@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import { Color, Style } from "../constant/Constant";
 import Loading from "../components/Loading";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "../components/Cast";
 import MovieList from "../components/MovieList";
@@ -27,6 +27,7 @@ export default function MovieScreen() {
   const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5]);
   const [cast, setCast] = useState([1, 2, 3, 4, 5]);
   const navigation = useNavigation();
+  const { params: item } = useRoute();
   return (
     <View style={Style.mainDark}>
       {loading ? (
@@ -37,15 +38,15 @@ export default function MovieScreen() {
           contentContainerStyle={{ paddingBottom: 50 }}
         >
           <View style={styles.widthfull}>
-            <SafeAreaView style={styles.container}>
+            <SafeAreaView style={styles.iconsContainer}>
               <TouchableOpacity
-                style={styles.goBack}
+                style={Style.goBack}
                 onPress={() => navigation.goBack()}
               >
                 <Ionicons name="chevron-back" size={30} color={Color.white} />
               </TouchableOpacity>
               <TouchableOpacity
-                style={{ marginRight: 10 }}
+                style={{ marginRight: 10, marginTop: 20 }}
                 onPress={() => setIsFavourite(!isFavourite)}
               >
                 <Ionicons
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
   widthfull: {
     width: "100%",
   },
-  container: {
+  iconsContainer: {
     marginTop: 30,
     position: "absolute",
     zIndex: 20,
@@ -118,13 +119,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 10,
   },
-  goBack: {
-    marginTop: 20,
-    marginLeft: 10,
-    padding: 10,
-    backgroundColor: Color.yellow,
-    borderRadius: 30,
-  },
+
   gradient: {
     width: width,
     height: height * 0.4,

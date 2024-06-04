@@ -5,6 +5,7 @@ export const Color = {
   background: "#333333",
   backgroundDark: "#171717",
   borderColor: "#737373",
+  borderRightColor: "#999999",
 };
 
 export const Style = {
@@ -46,5 +47,30 @@ export const Style = {
     fontSize: 13,
     textAlign: "center",
     marginTop: 4,
+  },
+  goBack: {
+    marginTop: 20,
+    marginLeft: 10,
+    padding: 10,
+    backgroundColor: Color.yellow,
+    borderRadius: 30,
+  },
+  information: {
+    borderRightWidth: 2,
+    borderColor: Color.borderRightColor,
+    alignItems: "center",
+    paddingHorizontal: 10,
+  },
+  infoTitle: {
+    color: Color.white,
+    fontWeight: "bold",
+    textTransform: "capitalize",
+    fontSize: 16,
+  },
+  infoText: {
+    color: Color.white,
+    opacity: 0.4,
+    textTransform: "capitalize",
+    fontSize: 14,
   },
 };
