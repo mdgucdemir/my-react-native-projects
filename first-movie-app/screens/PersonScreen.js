@@ -12,7 +12,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeftIcon } from "react-native-heroicons/outline";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { styles, theme } from "../theme";
-import { HeartIcon } from "react-native-heroicons/solid";
 import MovieList from "../components/movieList";
 import Loading from "../components/loading";
 import {
@@ -29,7 +28,6 @@ export default function PersonScreen() {
   //
   const { params: item } = useRoute();
   const navigation = useNavigation();
-  const [isFavourite, toggleFavourite] = useState(false);
   const [personMovies, setPersonMovies] = useState([]);
   const [person, setPerson] = useState({});
   const [loading, setLoading] = useState(false);
@@ -75,12 +73,6 @@ export default function PersonScreen() {
           onPress={() => navigation.goBack()}
         >
           <ChevronLeftIcon size={28} strokeWidth={2.5} color={theme.white} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => toggleFavourite(!isFavourite)}>
-          <HeartIcon
-            size={35}
-            color={isFavourite ? theme.background : theme.white}
-          />
         </TouchableOpacity>
       </SafeAreaView>
 

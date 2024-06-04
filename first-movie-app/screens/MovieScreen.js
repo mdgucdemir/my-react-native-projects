@@ -11,7 +11,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronLeftIcon } from "react-native-heroicons/outline";
-import { HeartIcon } from "react-native-heroicons/solid";
 import { styles, theme } from "../theme";
 import { LinearGradient } from "expo-linear-gradient";
 import Cast from "../components/cast";
@@ -30,9 +29,8 @@ const topMargin = ios ? "" : " mt-3";
 
 export default function MovieScreen() {
   const { params: item } = useRoute();
-  const [isFavourite, toggleFavourite] = useState(false);
   const [cast, setCast] = useState([]);
-  const [similarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5]);
+  const [similarMovies, setSimilarMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [movie, setMovie] = useState({});
 
@@ -87,12 +85,6 @@ export default function MovieScreen() {
             onPress={() => navigation.goBack()}
           >
             <ChevronLeftIcon size={28} strokeWidth={2.5} color={theme.white} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => toggleFavourite(!isFavourite)}>
-            <HeartIcon
-              size={35}
-              color={isFavourite ? theme.background : theme.white}
-            />
           </TouchableOpacity>
         </SafeAreaView>
 

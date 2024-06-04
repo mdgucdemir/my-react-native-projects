@@ -37,5 +37,3 @@ export default function AppNavigation() {
     </NavigationContainer>
   );
 }
-
-// const styles = StyleSheet.create({});
