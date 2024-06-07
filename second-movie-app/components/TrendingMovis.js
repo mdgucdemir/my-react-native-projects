@@ -6,18 +6,21 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Style } from "../constant/Constant";
 import Carousel from "react-native-snap-carousel";
 import { useNavigation } from "@react-navigation/native";
+import { fetchApi, getMovie, image500 } from "../api/api";
 
 let { width, height } = Dimensions.get("window");
 
 export default function TrendingMovis({ title, data }) {
   const navigation = useNavigation();
+
   const handleClick = (item) => {
     navigation.navigate("Movie", item);
   };
+
   return (
     <View style={{ marginBottom: 10 }}>
       <Text style={Style.titleText}>{title}</Text>
@@ -39,7 +42,7 @@ const MovieCard = ({ item, handleClick }) => {
   return (
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <Image
-        source={require("../assets/spiderman.jpg")}
+        source={{ uri: image500(item.poster_path) }}
         style={{
           width: width * 0.6,
           height: height * 0.4,

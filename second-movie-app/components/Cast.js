@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { Color, Style } from "../constant/Constant";
+import { image185 } from "../api/api";
 
 const personName = "Rocket Ceyhun Actor Name";
 
@@ -33,19 +34,19 @@ export default function Cast({ cast, navigation }) {
               >
                 <View style={styles.imageContainer}>
                   <Image
-                    source={require("../assets/spiderman.jpg")}
+                    source={{ uri: image185(person.profile_path) }}
                     style={styles.personImage}
                   />
                 </View>
                 <Text style={Style.miniText}>
-                  {personName.length > 10
-                    ? personName.slice(0, 10) + "..."
-                    : personName}
+                  {person?.character.length > 10
+                    ? person.character.slice(0, 10) + "..."
+                    : person.character}
                 </Text>
                 <Text style={Style.miniText}>
-                  {personName.length > 10
-                    ? personName.slice(0, 10) + "..."
-                    : personName}
+                  {person?.original_name.length > 10
+                    ? person.original_name.slice(0, 10) + "..."
+                    : person.original_name}
                 </Text>
               </TouchableOpacity>
             );

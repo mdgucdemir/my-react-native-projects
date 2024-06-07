@@ -11,17 +11,26 @@ import {
 import React from "react";
 import { Color, Style } from "../constant/Constant";
 import { useNavigation } from "@react-navigation/native";
+import { image185 } from "../api/api";
 
 let { width, height } = Dimensions.get("window");
-let text = "Rocket Ceyhun'un Hayati";
 
-export default function MovieList({ title, data, seeAll }) {
+export default function MovieList({ title, data, seeAll, media, mediaType }) {
   const navigation = useNavigation();
   return (
     <View style={{ marginTop: 10 }}>
       <View style={styles.title}>
         <Text style={Style.titleText}>{title}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("Movies", {
+              title: title,
+              data: data,
+              media: media,
+              mediaType: mediaType,
+            })
+          }
+        >
           {seeAll && <Text style={styles.seeAll}>See All</Text>}
         </TouchableOpacity>
       </View>
@@ -38,7 +47,7 @@ export default function MovieList({ title, data, seeAll }) {
             >
               <View style={{ marginRight: 10 }}>
                 <Image
-                  source={require("../assets/spiderman.jpg")}
+                  source={{ uri: image185(item.poster_path) }}
                   style={{
                     width: width * 0.33,
                     height: height * 0.22,
@@ -46,7 +55,9 @@ export default function MovieList({ title, data, seeAll }) {
                   }}
                 />
                 <Text style={Style.miniText}>
-                  {text.length > 14 ? text.slice(0, 14) + "..." : text}
+                  {item?.title?.length > 14
+                    ? item.title.slice(0, 14) + "..."
+                    : item.title}
                 </Text>
               </View>
             </TouchableWithoutFeedback>

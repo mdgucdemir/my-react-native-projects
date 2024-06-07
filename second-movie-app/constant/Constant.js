@@ -73,4 +73,10 @@ export const Style = {
     textTransform: "capitalize",
     fontSize: 14,
   },
+  iconsContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 30,
+  },
 };

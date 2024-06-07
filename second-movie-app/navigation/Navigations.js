@@ -13,6 +13,7 @@ import { AntDesign } from "@expo/vector-icons";
 import SearchScreen from "../screens/SearchScreen";
 import MovieScreen from "../screens/MovieScreen";
 import PersonScreen from "../screens/PersonScreen";
+import MoviesScreen from "../screens/MoviesScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -62,6 +63,7 @@ export default function Navigations() {
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Movie" component={MovieScreen} />
         <Stack.Screen name="Person" component={PersonScreen} />
+        <Stack.Screen name="Movies" component={MoviesScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

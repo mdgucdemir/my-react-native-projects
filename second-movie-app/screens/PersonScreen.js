@@ -8,12 +8,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Color, Style } from "../constant/Constant";
 import Loading from "../components/Loading";
 import { Ionicons } from "@expo/vector-icons";
 import MovieList from "../components/MovieList";
+import { fetchPersonDetails, fetchPersonMovies, image342 } from "../api/api";
 
 let { width, height } = Dimensions.get("window");
 
@@ -24,8 +25,32 @@ export default function PersonScreen() {
   const navigation = useNavigation();
   const { params: item } = useRoute();
   const [loading, setLoading] = useState(false);
-  const [isFavourite, setIsFavourite] = useState(false);
-  const [personMovie, setPersonMovie] = useState([1, 2, 3, 4, 5, 6]);
+  const [personMovie, setPersonMovies] = useState([]);
+  const [person, setPerson] = useState({});
+
+  useEffect(() => {
+    setLoading(true);
+    getPersonDetails(item.id);
+    getPersonMovies(item.id);
+  }, []);
+
+  const getPersonDetails = async (id) => {
+    const data = await fetchPersonDetails(id);
+    // console.log("person details: ", data);
+    if (data) setPerson(data);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  };
+  const getPersonMovies = async (id) => {
+    const data = await fetchPersonMovies(id);
+    // console.log("person details: ", data);
+    if (data) setPersonMovies(data.cast);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  };
+
   return (
     <View style={Style.main}>
       {loading ? (
@@ -35,22 +60,12 @@ export default function PersonScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 20 }}
         >
-          <SafeAreaView style={styles.iconsContainer}>
+          <SafeAreaView style={Style.iconsContainer}>
             <TouchableOpacity
               style={Style.goBack}
               onPress={() => navigation.goBack()}
             >
               <Ionicons name="chevron-back" size={30} color={Color.white} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => setIsFavourite(!isFavourite)}
-              style={{ marginTop: 20, marginRight: 10 }}
-            >
-              <Ionicons
-                name="heart"
-                size={50}
-                color={isFavourite ? Color.yellow : Color.white}
-              />
             </TouchableOpacity>
           </SafeAreaView>
 
@@ -59,7 +74,7 @@ export default function PersonScreen() {
             <View style={styles.imageContainer}>
               <View style={styles.imageShadow}>
                 <Image
-                  source={require("../assets/spiderman.jpg")}
+                  source={{ uri: image342(person?.profile_path) }}
                   style={styles.image}
                 />
               </View>
@@ -67,27 +82,37 @@ export default function PersonScreen() {
 
             {/* name nationality */}
             <View style={{ marginTop: 45 }}>
-              <Text style={styles.name}>{name}</Text>
-              <Text style={styles.place}>{place}</Text>
+              <Text style={styles.name}>{person?.name}</Text>
+              <Text style={styles.place}>{person?.place_of_birth}</Text>
             </View>
 
             {/* general info for person */}
             <View style={styles.infoContainer}>
               <View style={Style.information}>
                 <Text style={Style.infoTitle}>gender</Text>
-                <Text style={Style.infoText}>male</Text>
+                <Text style={Style.infoText}>
+                  {person.gender == 0
+                    ? "Not set / not specified"
+                    : person.gender == 1
+                    ? "Famele"
+                    : person.gender == 2
+                    ? "Male"
+                    : "Non-binary"}
+                </Text>
               </View>
               <View style={Style.information}>
                 <Text style={Style.infoTitle}>Birthday</Text>
-                <Text style={Style.infoText}>2024</Text>
+                <Text style={Style.infoText}>{person?.birthday}</Text>
               </View>
               <View style={Style.information}>
                 <Text style={Style.infoTitle}>Known for</Text>
-                <Text style={Style.infoText}>acting</Text>
+                <Text style={Style.infoText}>
+                  {person?.known_for_department}
+                </Text>
               </View>
               <View style={{ alignItems: "center", paddingHorizontal: 10 }}>
                 <Text style={Style.infoTitle}>Popularity</Text>
-                <Text style={Style.infoText}>19878</Text>
+                <Text style={Style.infoText}>{person?.popularity}</Text>
               </View>
             </View>
           </View>
@@ -95,7 +120,7 @@ export default function PersonScreen() {
           {/* person biography */}
           <View style={styles.personContainer}>
             <Text style={styles.bioTitle}>biography</Text>
-            <Text style={styles.bioText}>asdfkjsakldfjakldjfkalsfjkldfj</Text>
+            <Text style={styles.bioText}> {person?.biography || "N/A"}</Text>
           </View>
 
           {/* person movie list  */}
@@ -111,12 +136,6 @@ export default function PersonScreen() {
 }
 
 const styles = StyleSheet.create({
-  iconsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 15,
-  },
   imageContainer: {
     alignItems: "center",
   },
@@ -137,7 +156,7 @@ const styles = StyleSheet.create({
     height: height * 0.43,
   },
   name: {
-    fontSize: 20,
+    fontSize: 30,
     color: Color.white,
     fontWeight: "bold",
     textAlign: "center",
@@ -166,11 +185,11 @@ const styles = StyleSheet.create({
   bioTitle: {
     color: Color.white,
     textTransform: "capitalize",
-    fontSize: 18,
+    fontSize: 22,
   },
   bioText: {
     color: Color.white,
     opacity: 0.7,
-    marginTop: 5,
+    marginTop: 10,
   },
 });
