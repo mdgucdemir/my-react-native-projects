@@ -27,7 +27,7 @@ export default function HomeScreen({ navigation }) {
   }, []);
 
   const getTrendingMovies = async () => {
-    const data = await fetchTrendingMovies({ pageNum: 1 });
+    const data = await fetchTrendingMovies({ media: "movie" });
     if (data && data.results) {
       setTrending(data.results);
       setTimeout(() => {
@@ -35,6 +35,7 @@ export default function HomeScreen({ navigation }) {
       }, 1000);
     }
   };
+
   const getUpComingMovies = async () => {
     const data = await fetchMediaEndpoint({
       media: "movie",
@@ -89,6 +90,7 @@ export default function HomeScreen({ navigation }) {
         >
           {/* trending Movies */}
           <TrendingMovis title="trending movies" data={trending} />
+
           {/* upcoming movies */}
           <MovieList
             title="upcoming movies"

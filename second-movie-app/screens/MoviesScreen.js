@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { Color, Style } from "../constant/Constant";
 import Loading from "../components/Loading";
 import { Ionicons } from "@expo/vector-icons";
@@ -21,11 +21,10 @@ import { fetchMediaEndpoint, image185 } from "../api/api";
 const { width, height } = Dimensions.get("window");
 
 export default function MoviesScreen({ route }) {
-  const { title, data, media, mediaType } = route.params;
+  const { title, media, mediaType } = route.params;
   const navigation = useNavigation();
   const [movies, setMovies] = useState([]);
   const [pageNum, setPageNum] = useState(1);
-  
 
   useEffect(() => {
     getMovies();

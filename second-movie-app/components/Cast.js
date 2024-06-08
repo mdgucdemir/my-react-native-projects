@@ -38,15 +38,15 @@ export default function Cast({ cast, navigation }) {
                     style={styles.personImage}
                   />
                 </View>
+                <Text style={[Style.miniText, { opacity: 1 }]}>
+                  {person?.original_name.length > 10
+                    ? person.original_name.slice(0, 10) + "..."
+                    : person.original_name}
+                </Text>
                 <Text style={Style.miniText}>
                   {person?.character.length > 10
                     ? person.character.slice(0, 10) + "..."
                     : person.character}
-                </Text>
-                <Text style={Style.miniText}>
-                  {person?.original_name.length > 10
-                    ? person.original_name.slice(0, 10) + "..."
-                    : person.original_name}
                 </Text>
               </TouchableOpacity>
             );

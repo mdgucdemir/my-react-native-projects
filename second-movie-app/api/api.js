@@ -3,7 +3,7 @@ import { apiKey } from ".";
 
 // endpoints
 const apiBaseUrl = "https://api.themoviedb.org/3";
-const trendingMoviesEndpoint = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
+// const trendingMoviesEndpoint = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
 const searchMoviesEndPoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
 // dynamic endpoints
@@ -16,7 +16,12 @@ const similarMoviesEndpoint = (id) =>
 
 const mediaEndpoint = (media, mediaType, pageNum) => {
   const url = `${apiBaseUrl}/${media}/${mediaType}?api_key=${apiKey}&page=${pageNum}`;
-  // console.log(url);
+
+  return url;
+};
+
+const trendingEndpoint = (media) => {
+  const url = `${apiBaseUrl}/trending/${media}/day?api_key=${apiKey}`;
   return url;
 };
 
@@ -48,8 +53,8 @@ const apiCall = async (endpoint, params) => {
   }
 };
 
-export const fetchTrendingMovies = ({ pageNum }) => {
-  return apiCall(trendingMoviesEndpoint + `&page=${pageNum}`);
+export const fetchTrendingMovies = ({ media }) => {
+  return apiCall(trendingEndpoint(media));
 };
 
 export const fetchMediaEndpoint = ({ media, mediaType, pageNum }) => {

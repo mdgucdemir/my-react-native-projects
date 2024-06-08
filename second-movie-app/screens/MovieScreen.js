@@ -25,8 +25,6 @@ import {
 
 let { width, height } = Dimensions.get("window");
 
-const movieTitle = "Rocket Ceyhun'un Muhtesem Hayati";
-
 export default function MovieScreen() {
   const [loading, setLoading] = useState(true);
   const [similarMovies, setSimilarMovies] = useState([]);
@@ -44,6 +42,7 @@ export default function MovieScreen() {
 
   const getMovieDetails = async (id) => {
     const data = await fetchMovieDetails(id);
+
     if (data) setMovie(data);
     setTimeout(() => {
       setLoading(false);
