@@ -1,8 +1,8 @@
-import { View, Text } from "react-native";
+// import { View, Text } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import React from "react";
 import HomeScreen from "../screens/HomeScreen";
 import FavoriteScreen from "../screens/FavoriteScreen";

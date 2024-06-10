@@ -32,23 +32,18 @@ export default function PersonScreen() {
     setLoading(true);
     getPersonDetails(item.id);
     getPersonMovies(item.id);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, []);
 
   const getPersonDetails = async (id) => {
     const data = await fetchPersonDetails(id);
-    // console.log("person details: ", data);
     if (data) setPerson(data);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
   };
   const getPersonMovies = async (id) => {
     const data = await fetchPersonMovies(id);
-    // console.log("person details: ", data);
     if (data) setPersonMovies(data.cast);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
   };
 
   return (

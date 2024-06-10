@@ -39,7 +39,6 @@ export default function SearchScreen({ navigation }) {
         setTimeout(() => {
           setLoading(false);
         }, 2000);
-        // console.log("movies: ", data);
         if (data && data.results) setResults(data.results);
       });
     } else {

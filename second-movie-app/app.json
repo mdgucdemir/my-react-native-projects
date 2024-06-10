@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "second-movie-app",
-    "slug": "second-movie-app",
+    "slug": "movie-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,6 +22,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "1ecef473-14e1-4051-8787-1d7243338b9d"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/1ecef473-14e1-4051-8787-1d7243338b9d"
+    },
+    "owner": "mdgucdemir"
   }
 }

@@ -8,7 +8,13 @@ let { width, height } = Dimensions.get("window");
 export default function Loading() {
   return (
     <View style={[{ width, height }, styles.progress]}>
-      <Progress.CircleSnail thickness={12} size={160} color={Color.yellow} />
+      <Progress.CircleSnail
+        thickness={12}
+        size={160}
+        color={Color.yellow}
+        duration={500}
+        direction="clockwise"
+      />
     </View>
   );
 }

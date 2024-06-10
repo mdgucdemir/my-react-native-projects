@@ -22,6 +22,8 @@ import {
   fetchSimilarMovies,
   image500,
 } from "../api/api";
+import { useSelector, useDispatch } from "react-redux";
+import { addFavorite, deleteFavorite } from "../store/favoritesSlice";
 
 let { width, height } = Dimensions.get("window");
 
@@ -30,39 +32,58 @@ export default function MovieScreen() {
   const [similarMovies, setSimilarMovies] = useState([]);
   const [cast, setCast] = useState([]);
   const [movie, setMovie] = useState({});
-  const [isFavourite, setIsFavourite] = useState(false);
   const navigation = useNavigation();
   const { params: item } = useRoute();
 
+  const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.favoriteMovie.favorites);
+
+  const movieId = item.id;
+
+  const isMovieFavorite = (movie) => {
+    return favorites.some((fav) => fav.id === movie.id);
+  };
+
+  const handleFavorite = (movie) => {
+    if (isMovieFavorite(movie)) {
+      dispatch(deleteFavorite(movie));
+    } else {
+      dispatch(addFavorite(movie));
+    }
+  };
+
   useEffect(() => {
-    getMovieDetails(item.id);
-    getMovieCredits(item.id);
-    getSimilarMovies(item.id);
+    getMovieDetails(movieId);
+    getMovieCredits(movieId);
+    getSimilarMovies(movieId);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, [item]);
 
   const getMovieDetails = async (id) => {
     const data = await fetchMovieDetails(id);
 
     if (data) setMovie(data);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 1000);
   };
 
   const getMovieCredits = async (id) => {
     const data = await fetchMovieCredits(id);
     if (data && data.cast) setCast(data.cast);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 1000);
   };
 
   const getSimilarMovies = async (id) => {
     const data = await fetchSimilarMovies(id);
     if (data && data.results) setSimilarMovies(data.results);
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    // setTimeout(() => {
+    //   setLoading(false);
+    // }, 1000);
   };
 
   return (
@@ -84,12 +105,12 @@ export default function MovieScreen() {
               </TouchableOpacity>
               <TouchableOpacity
                 style={{ marginRight: 10, marginTop: 20 }}
-                onPress={() => setIsFavourite(!isFavourite)}
+                onPress={() => handleFavorite(movie)}
               >
                 <Ionicons
                   name="heart"
                   size={50}
-                  color={isFavourite ? Color.yellow : Color.white}
+                  color={isMovieFavorite(movie) ? Color.yellow : Color.white}
                 />
               </TouchableOpacity>
             </SafeAreaView>
