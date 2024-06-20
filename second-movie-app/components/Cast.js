@@ -10,8 +10,6 @@ import React from "react";
 import { Color, Style } from "../constant/Constant";
 import { image185 } from "../api/api";
 
-const personName = "Rocket Ceyhun Actor Name";
-
 export default function Cast({ cast, navigation }) {
   return (
     <View style={{ marginTop: 10 }}>

@@ -24,15 +24,15 @@ export default function HomeScreen({ navigation }) {
     getTrendingMovies();
     getUpComingMovies();
     getTopRatedMovies();
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
   }, []);
 
   const getTrendingMovies = async () => {
     const data = await fetchTrendingMovies({ media: "movie" });
     if (data && data.results) {
       setTrending(data.results);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
     }
   };
 
@@ -44,9 +44,6 @@ export default function HomeScreen({ navigation }) {
     });
     if (data && data.results) {
       setUpcoming(data.results);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
     }
   };
   const getTopRatedMovies = async () => {
@@ -57,9 +54,6 @@ export default function HomeScreen({ navigation }) {
     });
     if (data && data.results) {
       setTopRated(data.results);
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
     }
   };
 

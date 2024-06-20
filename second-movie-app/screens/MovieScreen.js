@@ -65,25 +65,16 @@ export default function MovieScreen() {
     const data = await fetchMovieDetails(id);
 
     if (data) setMovie(data);
-    // setTimeout(() => {
-    //   setLoading(false);
-    // }, 1000);
   };
 
   const getMovieCredits = async (id) => {
     const data = await fetchMovieCredits(id);
     if (data && data.cast) setCast(data.cast);
-    // setTimeout(() => {
-    //   setLoading(false);
-    // }, 1000);
   };
 
   const getSimilarMovies = async (id) => {
     const data = await fetchSimilarMovies(id);
     if (data && data.results) setSimilarMovies(data.results);
-    // setTimeout(() => {
-    //   setLoading(false);
-    // }, 1000);
   };
 
   return (

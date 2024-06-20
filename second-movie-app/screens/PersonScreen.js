@@ -18,9 +18,6 @@ import { fetchPersonDetails, fetchPersonMovies, image342 } from "../api/api";
 
 let { width, height } = Dimensions.get("window");
 
-let name = "Rocket Ceyhun";
-let place = "Rocket land";
-
 export default function PersonScreen() {
   const navigation = useNavigation();
   const { params: item } = useRoute();

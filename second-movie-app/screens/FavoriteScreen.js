@@ -53,7 +53,8 @@ export default function FavoriteScreen() {
             ) : (
               <>
                 <Text style={styles.movies}>
-                  you like {favorites.length} movies
+                  you like {favorites.length}{" "}
+                  {favorites.length > 1 ? "movies" : "movie"}
                 </Text>
                 <View style={styles.movieList}>
                   {favorites.map((item, index) => (

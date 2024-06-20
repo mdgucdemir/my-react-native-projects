@@ -1,6 +1,5 @@
 import {
   Dimensions,
-  FlatList,
   Image,
   SafeAreaView,
   ScrollView,
@@ -13,9 +12,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Color, Style } from "../constant/Constant";
-import Loading from "../components/Loading";
 import { Ionicons } from "@expo/vector-icons";
-import MovieList from "../components/MovieList";
 import { fetchMediaEndpoint, image185 } from "../api/api";
 
 const { width, height } = Dimensions.get("window");

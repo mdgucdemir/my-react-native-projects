@@ -3,7 +3,7 @@ import { apiKey } from ".";
 
 // endpoints
 const apiBaseUrl = "https://api.themoviedb.org/3";
-// const trendingMoviesEndpoint = `${apiBaseUrl}/trending/movie/day?api_key=${apiKey}`;
+
 const searchMoviesEndPoint = `${apiBaseUrl}/search/movie?api_key=${apiKey}`;
 
 // dynamic endpoints
